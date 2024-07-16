@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net"
 	"net/textproto"
@@ -13,55 +14,55 @@ type MyMilter struct {
 }
 
 // Connect logs SMTP connection data.
-func (m *MyMilter) Connect(host string, family string, port uint16, addr net.IP, mod *milter.Modifier) (milter.Response, error) {
+func (m *MyMilter) Connect(ctx context.Context, host string, family string, port uint16, addr net.IP, mod *milter.Modifier) (milter.Response, error) {
 	log.Printf("Connect from host: %s, family: %s, port: %d, IP: %s", host, family, port, addr)
 	return milter.RespContinue, nil
 }
 
 // Helo logs HELO/EHLO command.
-func (m *MyMilter) Helo(name string, mod *milter.Modifier) (milter.Response, error) {
+func (m *MyMilter) Helo(ctx context.Context, name string, mod *milter.Modifier) (milter.Response, error) {
 	log.Printf("HELO/EHLO: %s", name)
 	return milter.RespContinue, nil
 }
 
 // MailFrom logs the MAIL FROM command.
-func (m *MyMilter) MailFrom(from string, mod *milter.Modifier) (milter.Response, error) {
+func (m *MyMilter) MailFrom(ctx context.Context, from string, mod *milter.Modifier) (milter.Response, error) {
 	log.Printf("Mail from: %s", from)
 	return milter.RespContinue, nil
 }
 
 // RcptTo logs the RCPT TO command.
-func (m *MyMilter) RcptTo(rcptTo string, mod *milter.Modifier) (milter.Response, error) {
+func (m *MyMilter) RcptTo(ctx context.Context, rcptTo string, mod *milter.Modifier) (milter.Response, error) {
 	log.Printf("Rcpt to: %s", rcptTo)
 	return milter.RespContinue, nil
 }
 
 // Header logs each message header.
-func (m *MyMilter) Header(name string, value string, mod *milter.Modifier) (milter.Response, error) {
-	log.Printf("Header: %s: %s", name, value)
+func (m *MyMilter) Header(ctx context.Context, name string, value string, mod *milter.Modifier) (milter.Response, error) {
 	return milter.RespContinue, nil
 }
 
 // Headers is called when all headers have been processed.
-func (m *MyMilter) Headers(h textproto.MIMEHeader, mod *milter.Modifier) (milter.Response, error) {
+func (m *MyMilter) Headers(ctx context.Context, h textproto.MIMEHeader, mod *milter.Modifier) (milter.Response, error) {
 	log.Printf("All headers processed.")
 	return milter.RespContinue, nil
 }
 
 // BodyChunk processes body chunks.
-func (m *MyMilter) BodyChunk(chunk []byte, mod *milter.Modifier) (milter.Response, error) {
+func (m *MyMilter) BodyChunk(ctx context.Context, chunk []byte, mod *milter.Modifier) (milter.Response, error) {
 	log.Printf("Body chunk: %d bytes", len(chunk))
 	return milter.RespContinue, nil
 }
 
 // Body is called at the end of the message.
-func (m *MyMilter) Body(mod *milter.Modifier) (milter.Response, error) {
+func (m *MyMilter) Body(ctx context.Context, mod *milter.Modifier) (milter.Response, error) {
+	mod.AddHeader("X-MyMilter", "Hello, world!")
 	log.Println("End of message body.")
 	return milter.RespContinue, nil
 }
 
 // Abort handles message aborts.
-func (m *MyMilter) Abort(mod *milter.Modifier) error {
+func (m *MyMilter) Abort(ctx context.Context, mod *milter.Modifier) error {
 	log.Println("Message processing aborted.")
 	return nil
 }
@@ -78,6 +79,8 @@ func main() {
 
 	server := milter.Server{
 		NewMilter: newMilter,
+		Actions:   milter.OptAddHeader | milter.OptChangeBody,
+		Protocol:  milter.OptNoEOH,
 	}
 
 	log.Println("Starting milter server on :12345")

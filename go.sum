@@ -1,7 +1,11 @@
 github.com/emersion/go-message v0.18.1 h1:tfTxIoXFSFRwWaZsgnqS1DSZuGpYGzSmCZD8SK3QA2E=
 github.com/emersion/go-message v0.18.1/go.mod h1:XpJyL70LwRvq2a8rVbHXikPgKj8+aI0kGdHlg16ibYA=
-github.com/ryuichi1208/go-milter v0.0.0-20240512025744-13111caddd03 h1:aTP5vCOwBFyb7RNhm0wCrs1ha2sjFbyf9kSxwqnYpEA=
-github.com/ryuichi1208/go-milter v0.0.0-20240512025744-13111caddd03/go.mod h1:YOIzM7IPmoONSYhJ4lg9AnhhnfrSfB/YrOAO6kPQ6r4=
+github.com/ryuichi1208/go-milter v0.0.2 h1:PR3aPGPgDunAWyCqbaBvp0Xv/hy8XwB6zBAKAAOec6o=
+github.com/ryuichi1208/go-milter v0.0.2/go.mod h1:YOIzM7IPmoONSYhJ4lg9AnhhnfrSfB/YrOAO6kPQ6r4=
+github.com/ryuichi1208/go-milter v0.0.3 h1:A2euEF56XtYCgxnxSZ+OiIbSW+YQVroVsuV35wFPvS4=
+github.com/ryuichi1208/go-milter v0.0.3/go.mod h1:YOIzM7IPmoONSYhJ4lg9AnhhnfrSfB/YrOAO6kPQ6r4=
+github.com/ryuichi1208/go-milter v0.0.4 h1:FL9M4UySuZtEag4Ls97tcZaJAnDbgXiicX/T9Qto+C0=
+github.com/ryuichi1208/go-milter v0.0.4/go.mod h1:YOIzM7IPmoONSYhJ4lg9AnhhnfrSfB/YrOAO6kPQ6r4=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20210921155107-089bfa567519/go.mod h1:GvvjBRRGRdwPK5ydBHafDWAxML/pGHZbMvKqRZ5+Abc=
