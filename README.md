@@ -1,5 +1,7 @@
 # milter-sample
 
+メールをトレースするためのMilterです。Postfixのみで試してます。
+
 ## 使い方
 
 ```
